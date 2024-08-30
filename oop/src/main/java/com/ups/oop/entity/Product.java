@@ -20,6 +20,7 @@ public class Product {
     private Long id;
     private String name;
     private String supplierss;
+    private double price;
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = true)
     private Supplier supplier;

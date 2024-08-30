@@ -34,6 +34,11 @@ public class Receipt {
     @ManyToOne
     @JoinColumn(name= "employee_id", nullable = true)
     private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name= "payment_id", nullable = true)
+    private PaymentMeth paymentMeth;
+
     @OneToMany(mappedBy = "receipt")
     private List<Details> detailList = new ArrayList<>();
 }

@@ -1,6 +1,6 @@
 package com.ups.oop.dto;
 
-import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 
-public class ProductDTO {
-    private String product_name;
-    private String Id;
-    private double  price;
-    private List<String> supplier;
+public class PaymentMethDTO {
+    private String id;
+    private String method;
 }
