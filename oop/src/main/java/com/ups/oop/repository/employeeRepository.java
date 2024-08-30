@@ -1,13 +1,10 @@
 package com.ups.oop.repository;
 
-import com.ups.oop.dto.PersonDTO;
-import com.ups.oop.entity.Person;
+import com.ups.oop.entity.Employee;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
-public interface employeeRepository extends CrudRepository<Person, Long> {
-
-
+public interface employeeRepository extends CrudRepository<Employee, Long> {
 }

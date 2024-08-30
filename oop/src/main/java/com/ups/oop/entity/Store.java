@@ -1,32 +1,23 @@
 package com.ups.oop.entity;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 
 public class Store {
-    private int storeId;
-    private String storeName;
-    private String storeBranchName;
-
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getStoreBranchName() {
-        return storeBranchName;
-    }
-
-    public void setStoreBranchName(String storeBranchName) {
-        this.storeBranchName = storeBranchName;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String branch_name;
+    @OneToMany(mappedBy = "branchs")
+    private List<Receipt> receipts = new ArrayList<>();
 }
-

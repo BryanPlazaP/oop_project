@@ -1,4 +1,7 @@
 package com.ups.oop.repository;
 
-public class storeRepository {
+import com.ups.oop.entity.Store;
+import org.springframework.data.repository.CrudRepository;
+
+public interface storeRepository extends CrudRepository<Store, Long> {
 }
