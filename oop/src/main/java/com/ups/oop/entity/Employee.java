@@ -1,5 +1,6 @@
 package com.ups.oop.entity;
 
+import com.ups.oop.dto.Person;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -22,7 +23,7 @@ public class Employee extends Person {
     }
 
     public Employee(String employeeCode, String personId, String name, String lastname, Integer age) {
-        super(personId, name, lastname, age);
+        super(age, lastname, name, personId);
         this.employeeCode = employeeCode;
     }
 }
