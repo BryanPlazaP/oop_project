@@ -40,7 +40,7 @@ public class ProductService {
                 productRepository.save(productRecord);
                 return ResponseEntity.status(HttpStatus.OK).body(productDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee name must contain two strings separated by a whitespace");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product name must contain two strings separated by a whitespace");
             }
         }
     }
@@ -70,8 +70,8 @@ public class ProductService {
         if(productOptional.isPresent()) {
             //if record was found
             Product productFound = productOptional.get();
-            ProductDTO customer = new ProductDTO(productFound.getId().toString(), productFound.getName(),productFound.getPrice(), Arrays.asList(productFound.getSupplier().getName()));
-            return ResponseEntity.status(HttpStatus.OK).body(customer);
+            ProductDTO product = new ProductDTO(productFound.getId().toString(), productFound.getName(),productFound.getPrice(), Arrays.asList(productFound.getSupplier().getName()));
+            return ResponseEntity.status(HttpStatus.OK).body(product);
         } else {
             //if record wasn't found
             String errorMessage = "Product with id " + productId + " not found";
@@ -95,7 +95,7 @@ public class ProductService {
                 productRepository.save(product);
                 return ResponseEntity.status(HttpStatus.OK).body(productDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee name must contain two strings separated by a whitespace");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product name must contain two strings separated by a whitespace");
             }
         } else {
             String errorMessage = "Employee with id " + requestId + " not found";
