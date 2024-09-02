@@ -25,7 +25,7 @@ public class EmployeeService {
     public ResponseEntity createEmployee(EmployeeDTO employeeDTO) {
         String employeeId = employeeDTO.getId();
         //check repository if record exist
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeId(employeeId);
+        Optional<Employee> employeeOptional = employeeRepository.findById(Long.valueOf(employeeId));
         if(employeeOptional.isPresent()) {
             String errorMessage = "Employee with id " + employeeId + " already exists";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -71,7 +71,7 @@ public class EmployeeService {
     }
 
     public ResponseEntity getEmployeebyId(String employeeId) {
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeId(employeeId);
+        Optional<Employee> employeeOptional = employeeRepository.findById(Long.valueOf(employeeId));
         if(employeeOptional.isPresent()) {
             //if record was found
             Employee employeeFound = employeeOptional.get();
@@ -87,15 +87,15 @@ public class EmployeeService {
     }
 
     public ResponseEntity updateEmployee(EmployeeDTO employeeDTO) {
-        String requestId = employeeDTO.getId();
+        String employeeId = employeeDTO.getId();
         //check repository if record exist
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeId(requestId);
+        Optional<Employee> employeeOptional = employeeRepository.findById(Long.valueOf(employeeId));
         if(employeeOptional.isPresent()) {
             //If record exists, then perform Update
             Employee employee = employeeOptional.get();
             if(employeeDTO.getName().contains(" ")) {
                 //Build Person and save in Repository
-                employee.setPersonId(requestId);
+                employee.setPersonId(employeeId);
                 String[] nameStrings = employeeDTO.getName().split(" ");
                 String name = nameStrings[0];
                 String lastname = nameStrings[1];
@@ -108,14 +108,14 @@ public class EmployeeService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee name must contain two strings separated by a whitespace");
             }
         } else {
-            String errorMessage = "Employee with id " + requestId + " not found";
+            String errorMessage = "Employee with id " + employeeId + " not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
 
     public ResponseEntity deleteCustomerById(String id) {
         String message = "Employee with id " + id;
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeId(id);
+        Optional<Employee> employeeOptional = employeeRepository.findById(Long.valueOf(id));
         if(employeeOptional.isPresent()) {
             //If record was found, then delete record
             employeeRepository.delete(employeeOptional.get());

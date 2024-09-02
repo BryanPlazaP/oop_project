@@ -12,4 +12,6 @@ public class DetailsDTO {
     private String id;
     private String receipt;
     private String product;
+    private Double unitprice;
+    private int quantity;
 }

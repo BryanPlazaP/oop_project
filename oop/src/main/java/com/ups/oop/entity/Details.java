@@ -21,6 +21,7 @@ public class Details {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "receipt_id", nullable = true)
     private Receipt receipt;

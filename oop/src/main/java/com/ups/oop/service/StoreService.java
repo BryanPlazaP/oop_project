@@ -26,7 +26,7 @@ public class StoreService {
     public ResponseEntity createStore(StoreDTO storeDTO) {
         String storeId = storeDTO.getId();
         //check repository if record exist
-        Optional<Store> storeOptional = storeRepository.findByStoreId(storeId);
+        Optional<Store> storeOptional = storeRepository.findById(Long.valueOf(storeId));
         if(storeOptional.isPresent()) {
             String errorMessage = "Store with id " + storeId + " already exists";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -71,7 +71,7 @@ public class StoreService {
     }
 
     public ResponseEntity getStorebyId(String storeId) {
-        Optional<Store> storeOptional = storeRepository.findByStoreId(storeId);
+        Optional<Store> storeOptional = storeRepository.findById(Long.valueOf(storeId));
         if(storeOptional.isPresent()) {
             //if record was found
             Store storeFound = storeOptional.get();
@@ -85,15 +85,15 @@ public class StoreService {
     }
 
     public ResponseEntity updateStore(StoreDTO storeDTO) {
-        String requestId = storeDTO.getId();
+        String storeId = storeDTO.getId();
         //check repository if record exist
-        Optional<Store> storeOptional = storeRepository.findByStoreId(requestId);
+        Optional<Store> storeOptional = storeRepository.findById(Long.valueOf(storeId));
         if(storeOptional.isPresent()) {
             //If record exists, then perform Update
             Store store = storeOptional.get();
             if(storeDTO.getStore().contains(" ")) {
                 //Build Person and save in Repository
-                store.setId(Long.valueOf(requestId));
+                store.setId(Long.valueOf(storeId));
                 String[] nameStrings = storeDTO.getStore().split(" ");
                 String name = nameStrings[0];
                 store.setBranch_name(name);
@@ -103,14 +103,14 @@ public class StoreService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Store name must contain two strings separated by a whitespace");
             }
         } else {
-            String errorMessage = "Store with id " + requestId + " not found";
+            String errorMessage = "Store with id " + storeId + " not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
 
     public ResponseEntity deleteStoreById(String id) {
         String message = "Product with id " + id;
-        Optional<Store> productOptional = storeRepository.findByStoreId(id);
+        Optional<Store> productOptional = storeRepository.findById(Long.valueOf(id));
         if(productOptional.isPresent()) {
             //If record was found, then delete record
             storeRepository.delete(productOptional.get());

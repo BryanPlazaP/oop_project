@@ -38,10 +38,9 @@
         <th>Id</th>
         <th>meth</th>
     </tr>
-    <tr th:each="meth: ${people}">
-        <th th:text="${per.id}"></th>
-        <th th:text="${per.name}"></th>
-        <th th:text="${per.age}"></th>
+    <tr th:each="supp: ${supplier}">
+        <th th:text="${sup.id}"></th>
+        <th th:text="${sup.name}"></th>
     </tr>
 
 </table>

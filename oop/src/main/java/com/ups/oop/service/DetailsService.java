@@ -22,9 +22,10 @@ public class DetailsService {
         for (Details detail : detailsIterable) {
             DetailsDTO detailsDTO = new DetailsDTO();
             detailsDTO.setId(detail.getId().toString());
-            detailsDTO.setReceipt(detail.getReceipt().toString());
-            detailsDTO.setProduct(detail.getProduct().toString());
-
+            detailsDTO.setReceipt(detail.getReceipt().getSerial());
+            detailsDTO.setProduct(detail.getProduct().getName());
+            detailsDTO.setUnitprice(detail.getProduct().getPrice());
+            detailsDTO.setQuantity(detail.getQuantity());
             detailsList.add(detailsDTO);
         }
         return detailsList;

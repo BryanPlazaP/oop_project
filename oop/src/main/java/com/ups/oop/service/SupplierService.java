@@ -28,7 +28,7 @@ public class SupplierService {
     public ResponseEntity createSupplier(SupplierDTO supplierDTO) {
         String supplierId = supplierDTO.getId();
         //check repository if record exist
-        Optional<Supplier> supplierOptional = supplierRepository.findBySupplierId(supplierId);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(Long.valueOf(supplierId));
         if(supplierOptional.isPresent()) {
             String errorMessage = "Supplier with id " + supplierId + " already exists";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -70,7 +70,7 @@ public class SupplierService {
     }
 
     public ResponseEntity getSupplierbyId(String supplierId) {
-        Optional<Supplier> supplierOptional = supplierRepository.findBySupplierId(supplierId);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(Long.valueOf(supplierId));
         if(supplierOptional.isPresent()) {
             //if record was found
             Supplier supplierFound = supplierOptional.get();
@@ -84,15 +84,15 @@ public class SupplierService {
     }
 
     public ResponseEntity updateSupplier(SupplierDTO supplierDTO) {
-        String requestId = supplierDTO.getId();
+        String supplierId = supplierDTO.getId();
         //check repository if record exist
-        Optional<Supplier> supplierOptional = supplierRepository.findBySupplierId(requestId);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(Long.valueOf(supplierId));
         if(supplierOptional.isPresent()) {
             //If record exists, then perform Update
             Supplier supplier = supplierOptional.get();
             if(supplierDTO.getId().contains(" ")) {
                 //Build Person and save in Repository
-                supplier.setId(Long.valueOf(requestId));
+                supplier.setId(Long.valueOf(supplierId));
                 String[] nameStrings = supplierDTO.getName().split(" ");
                 String name = nameStrings[0];
                 supplier.setName(name);
@@ -102,14 +102,14 @@ public class SupplierService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Store name must contain two strings separated by a whitespace");
             }
         } else {
-            String errorMessage = "Store with id " + requestId + " not found";
+            String errorMessage = "Store with id " + supplierId + " not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
 
     public ResponseEntity deleteSupplierById(String id) {
         String message = "Supplier with id " + id;
-        Optional<Supplier> supplierOptional = supplierRepository.findBySupplierId(id);
+        Optional<Supplier> supplierOptional = supplierRepository.findById(Long.valueOf(id));
         if(supplierOptional.isPresent()) {
             //If record was found, then delete record
             supplierRepository.delete(supplierOptional.get());
