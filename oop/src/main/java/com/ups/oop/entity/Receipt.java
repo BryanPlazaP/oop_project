@@ -39,6 +39,10 @@ public class Receipt {
     @JoinColumn(name= "payment_id", nullable = true)
     private PaymentMeth paymentMeth;
 
+    @ManyToOne
+    @JoinColumn(name= "store_id", nullable = true)
+    private Store branches;
+
     @OneToMany(mappedBy = "receipt")
     private List<Details> detailList = new ArrayList<>();
 }

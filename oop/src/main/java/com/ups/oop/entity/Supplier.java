@@ -18,6 +18,6 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToMany(mappedBy = "suppliers")
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "supplier")
+    private List <Product> products = new ArrayList<>();
 }

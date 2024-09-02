@@ -18,17 +18,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String productId;
     private String name;
     private String supplierss;
     private double price;
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = true)
     private Supplier supplier;
-    @ManyToMany
-    @JoinTable(
-            name="product_supplier",
-            joinColumns = @JoinColumn(name="product_id"),
-            inverseJoinColumns = @JoinColumn(name = "supplier_id")
-    )
-    List<Supplier> suppliers = new ArrayList<>();
 }

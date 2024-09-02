@@ -24,7 +24,7 @@ public class CustomerService {
     public ResponseEntity createCustomer(CustomerDTO customerDTO) {
         String customerId = customerDTO.getId();
         //check repository if record exist
-        Optional<Customer> customerOptional = customerRepository.findByCustomerId(customerId);
+        Optional<Customer> customerOptional = customerRepository.findById(Long.valueOf(customerId));
         if(customerOptional.isPresent()) {
             String errorMessage = "Customer with id " + customerId + " already exists";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -70,7 +70,7 @@ public class CustomerService {
     }
 
     public ResponseEntity getCustomerById(String customerId) {
-        Optional<Customer> customerOptional = customerRepository.findByCustomerId(customerId);
+        Optional<Customer> customerOptional = customerRepository.findById(Long.valueOf(customerId));
         if(customerOptional.isPresent()) {
             //if record was found
             Customer customerFound = customerOptional.get();
@@ -88,7 +88,7 @@ public class CustomerService {
     public ResponseEntity updateCustomer(CustomerDTO customerDTO) {
         String requestId = customerDTO.getId();
         //check repository if record exist
-        Optional<Customer> customerOptional = customerRepository.findByCustomerId(requestId);
+        Optional<Customer> customerOptional = customerRepository.findById(Long.valueOf(requestId));
         if(customerOptional.isPresent()) {
             //If record exists, then perform Update
             Customer customer = customerOptional.get();
@@ -114,7 +114,7 @@ public class CustomerService {
 
     public ResponseEntity deleteCustomerById(String id) {
         String message = "Customer with id " + id;
-        Optional<Customer> customerOptional = customerRepository.findByCustomerId(id);
+        Optional<Customer> customerOptional = customerRepository.findById(Long.valueOf(id));
         if(customerOptional.isPresent()) {
             //If record was found, then delete record
             customerRepository.delete(customerOptional.get());

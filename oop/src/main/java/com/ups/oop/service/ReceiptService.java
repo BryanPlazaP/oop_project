@@ -25,11 +25,11 @@ public class ReceiptService {
             ReceiptDTO receiptDTO = new ReceiptDTO();
             receiptDTO.setId(receipt.getId().toString());
             receiptDTO.setSerial(receipt.getSerial());
-            receiptDTO.setCustomer(receipt.getCustomer().toString());
+            receiptDTO.setCustomer(receipt.getCustomer().getName() + " " +receipt.getCustomer().getLastName());
             receiptDTO.setDate(receipt.getReceiptDate());
             receiptDTO.setTotalprice(receipt.getTotal_price().doubleValue());
-            receiptDTO.setEmployee(receipt.getEmployee().toString());
-            receiptDTO.setPaymentmethod(receipt.getPaymentMeth().toString());
+            receiptDTO.setEmployee(receipt.getEmployee().getName() + " " + receipt.getEmployee().getLastName());
+            receiptDTO.setPaymentmethod(receipt.getPaymentMeth().getMethod());
 
             receiptList.add(receiptDTO);
         }

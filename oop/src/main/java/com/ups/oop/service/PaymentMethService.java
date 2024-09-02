@@ -24,7 +24,7 @@ public class PaymentMethService {
 
     public ResponseEntity createPayment(PaymentMethDTO paymentMethDTO) {
         String paymentMethId = paymentMethDTO.getId();
-        Optional<PaymentMeth> paymentOptional = PaymentMethRepository.findByPaymentId(paymentMethId);
+        Optional<PaymentMeth> paymentOptional = PaymentMethRepository.findById(Long.valueOf(paymentMethId));
         if(paymentOptional.isPresent()) {
             String errorMessage = "Payment method with id " + paymentMethId + " already exists";
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
@@ -66,7 +66,7 @@ public class PaymentMethService {
     }
 
     public ResponseEntity getPaymentMethbyId(String paymentId) {
-        Optional<PaymentMeth> paymentOptional = PaymentMethRepository.findByPaymentId(paymentId );
+        Optional<PaymentMeth> paymentOptional = PaymentMethRepository.findById(Long.valueOf(paymentId));
         if(paymentOptional.isPresent()) {
             //if record was found
             PaymentMeth paymentFound = paymentOptional.get();
@@ -80,15 +80,15 @@ public class PaymentMethService {
     }
 
     public ResponseEntity updatePayment(PaymentMethDTO paymentMethDTO) {
-        String requestId = paymentMethDTO.getId();
+        String paymentId = paymentMethDTO.getId();
         //check repository if record exist
-        Optional<PaymentMeth> paymentMethOptional = PaymentMethRepository.findByPaymentId(requestId);
+        Optional<PaymentMeth> paymentMethOptional = PaymentMethRepository.findById(Long.valueOf(paymentId));
         if(paymentMethOptional.isPresent()) {
             //If record exists, then perform Update
             PaymentMeth paymentMeth = paymentMethOptional.get();
             if(paymentMethDTO.getId().contains(" ")) {
                 //Build Person and save in Repository
-                paymentMeth.setId(Long.valueOf(requestId));
+                paymentMeth.setId(Long.valueOf(paymentId));
                 String[] nameStrings = paymentMethDTO.getMethod().split(" ");
                 String name = nameStrings[0];
                 paymentMeth.setMethod(name);
@@ -98,14 +98,14 @@ public class PaymentMethService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Payment Method name must contain two strings separated by a whitespace");
             }
         } else {
-            String errorMessage = "Payment Method with id " + requestId + " not found";
+            String errorMessage = "Payment Method with id " + paymentId + " not found";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
 
     public ResponseEntity deletePaymentById(String id) {
         String message = "Payment Method with id " + id;
-        Optional<PaymentMeth> paymentMethOptional = PaymentMethRepository.findByPaymentId(id);
+        Optional<PaymentMeth> paymentMethOptional = PaymentMethRepository.findById(Long.valueOf(id));
         if(paymentMethOptional.isPresent()) {
             //If record was found, then delete record
             PaymentMethRepository.delete(paymentMethOptional.get());

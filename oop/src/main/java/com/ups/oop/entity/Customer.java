@@ -20,7 +20,4 @@ public class Customer extends Person {
         this.clientCode = clientCode;
     }
 
-    public Customer(String clientCode) {
-        this.clientCode = clientCode;
-    }
 }

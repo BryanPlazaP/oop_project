@@ -15,6 +15,7 @@ import lombok.ToString;
 
 public class ProductDTO {
     private String product_name;
+    private String productId;
     private String Id;
     private double price;
     private List<String> supplier;

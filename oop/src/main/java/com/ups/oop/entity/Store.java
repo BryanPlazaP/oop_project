@@ -19,6 +19,6 @@ public class Store {
     private Long id;
     private String branch_name;
     private String store_name;
-    @OneToMany(mappedBy = "branchs")
+    @OneToMany(mappedBy = "branches")
     private List<Receipt> receipts = new ArrayList<>();
 }

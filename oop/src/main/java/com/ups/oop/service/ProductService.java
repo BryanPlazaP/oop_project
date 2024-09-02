@@ -70,7 +70,8 @@ public class ProductService {
         if(productOptional.isPresent()) {
             //if record was found
             Product productFound = productOptional.get();
-            ProductDTO product = new ProductDTO(productFound.getId().toString(), productFound.getName(),productFound.getPrice(), Arrays.asList(productFound.getSupplier().getName()));
+            ProductDTO product = new ProductDTO(productFound.getId().toString(), productFound.getProductId(),
+                    productFound.getName(),productFound.getPrice(), Arrays.asList(productFound.getSupplier().getName()));
             return ResponseEntity.status(HttpStatus.OK).body(product);
         } else {
             //if record wasn't found
