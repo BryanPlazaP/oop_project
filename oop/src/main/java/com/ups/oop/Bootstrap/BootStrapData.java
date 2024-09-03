@@ -1,12 +1,9 @@
 package com.ups.oop.Bootstrap;
-import com.ups.oop.dto.Person;
 import com.ups.oop.entity.*;
 import com.ups.oop.repository.*;
-import com.ups.oop.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
 import java.util.Date;
-import java.util.Optional;
 
 @Component
 public class BootStrapData  implements CommandLineRunner {
@@ -38,14 +35,14 @@ public class BootStrapData  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-            PaymentMeth pay1 = new PaymentMeth();
-            pay1.setMethod("Credit Card");
+        PaymentMeth pay1 = new PaymentMeth();
+        pay1.setMethod("Credit Card");
 
-            PaymentMeth pay2 = new PaymentMeth();
-            pay2.setMethod("Cash");
+        PaymentMeth pay2 = new PaymentMeth();
+        pay2.setMethod("Cash");
 
-            paymentMethRepository.save(pay1);
-            paymentMethRepository.save(pay2);
+        paymentMethRepository.save(pay1);
+        paymentMethRepository.save(pay2);
 
         Store  sto1 = new Store();
         sto1.setBranch_name("Sucursal Sur");
@@ -72,7 +69,7 @@ public class BootStrapData  implements CommandLineRunner {
 
         Employee emp2 = new Employee();
         emp2.setEmployeeCode("E-002");
-        emp2.setName("Mishelle");
+        emp2.setName("Michelle");
         emp2.setLastName("Camino");
         emp2.setAge(19);
 
@@ -138,20 +135,27 @@ public class BootStrapData  implements CommandLineRunner {
         rec1.setBranches(sto1);
         rec1.setEmployee(emp1);
         rec1.setSerial("R-001");
-        rec1.setTotal_price(25);
+        rec1.setTotal_price(38);
         rec1.setPaymentMeth(pay2);
         rec1.setReceiptDate(new Date());
         receiptRepository.save(rec1);
 
         Details det1 = new Details();
         det1.setReceipt(rec1);
-        det1.setProduct(pro1);
-        det1.setProduct(pro2);
-        det1.setReceipt(rec1);
+        det1.setProduct(pro4);
         det1.setQuantity(3);
         detailsRepository.save(det1);
 
         rec1.getDetailList().add(det1);
+        receiptRepository.save(rec1);
+
+        Details det3 = new Details();
+        det3.setReceipt(rec1);
+        det3.setProduct(pro3);
+        det3.setQuantity(2);
+        detailsRepository.save(det3);
+
+        rec1.getDetailList().add(det3);
         receiptRepository.save(rec1);
 
 
@@ -160,7 +164,7 @@ public class BootStrapData  implements CommandLineRunner {
         rec2.setBranches(sto4);
         rec2.setEmployee(emp2);
         rec2.setSerial("R-002");
-        rec2.setTotal_price(30);
+        rec2.setTotal_price(29);
         rec2.setPaymentMeth(pay1);
         rec2.setReceiptDate(new Date());
         receiptRepository.save(rec2);
@@ -168,12 +172,19 @@ public class BootStrapData  implements CommandLineRunner {
         Details det2 = new Details();
         det2.setReceipt(rec2);
         det2.setProduct(pro2);
-        det2.setProduct(pro2);
-        det2.setReceipt(rec2);
-        det2.setQuantity(5);
+        det2.setQuantity(2);
         detailsRepository.save(det2);
 
         rec2.getDetailList().add(det2);
+        receiptRepository.save(rec2);
+
+        Details det4 = new Details();
+        det4.setReceipt(rec2);
+        det4.setProduct(pro1);
+        det4.setQuantity(3);
+        detailsRepository.save(det4);
+
+        rec2.getDetailList().add(det4);
         receiptRepository.save(rec2);
 
     }
