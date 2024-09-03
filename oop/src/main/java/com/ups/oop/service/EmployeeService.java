@@ -113,7 +113,7 @@ public class EmployeeService {
         }
     }
 
-    public ResponseEntity deleteCustomerById(String id) {
+    public ResponseEntity deleteEmployeeById(String id) {
         String message = "Employee with id " + id;
         Optional<Employee> employeeOptional = employeeRepository.findById(Long.valueOf(id));
         if(employeeOptional.isPresent()) {
